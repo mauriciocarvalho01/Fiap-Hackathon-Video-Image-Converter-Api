@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fiap
+  name: restaurante-acme-video-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: restaurante-acme-video
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 4080
+      name: restaurante-acme-video-load-balancer

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restaurante-acme-video-vars
+  namespace: fiap
+  labels:
+    app: restaurante-acme-video
+data:
+  PORT: "4080"
+  CHECK_IP_AUTHORIZATION: "false"
+  WHITE_LIST_IPS: ""
+  MONGODB_HOST: mongodb+srv://mmbot:x7fGRhFTlNOnzAR9@cluster0.pvntzzz.mongodb.net
+  MONGODB_DATABASE: restaurante_acme_video
+  MESSAGE_BROKER_HOST: amqp://a8e1e2884d30e4127a143825f63b792c-913281404.us-east-1.elb.amazonaws.com:5672
