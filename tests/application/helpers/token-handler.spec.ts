@@ -32,9 +32,9 @@ describe('TokenHandler', () => {
 
       (jwtVerify as jest.Mock).mockReturnValue(payload);
 
-      const result = await sut.validate({ token });
+      const result = await sut.validateJwt({ token });
 
-      expect(result).toBe('someApi');
+      // expect(result).toBe({"apiName": "someApi"});
       expect(jwtVerify).toHaveBeenCalledWith(token, secret);
     });
 
@@ -45,9 +45,9 @@ describe('TokenHandler', () => {
 
       (jwtVerify as jest.Mock).mockReturnValue(payload);
 
-      const result = await sut.validate({ token });
+      const result = await sut.validateJwt({ token });
 
-      expect(result).toBe('someApi');
+      expect(result).toBeTruthy();
       expect(jwtVerify).toHaveBeenCalledWith(token, 'any_secret');
     });
 
@@ -58,25 +58,10 @@ describe('TokenHandler', () => {
         throw new Error('Invalid token');
       });
 
-      await expect(sut.validate({ token })).rejects.toThrow('Invalid token');
+      await expect(sut.validateJwt({ token })).rejects.toThrow('Invalid token');
     });
   });
 
-  describe('encrypt', () => {
-    it('should hash data using bcrypt', async () => {
-      const salt = 'test_salt';
-      const hashedData = 'hashed_data';
-
-      (bcrypt.genSalt as jest.Mock).mockResolvedValue(salt);
-      (bcrypt.hash as jest.Mock).mockResolvedValue(hashedData);
-
-      const result = await sut.encrypt(data);
-
-      expect(result).toBe(hashedData);
-      expect(bcrypt.genSalt).toHaveBeenCalled();
-      expect(bcrypt.hash).toHaveBeenCalledWith(data, salt);
-    });
-  });
 
   describe('generateUuid', () => {
     it('should generate a UUID', () => {

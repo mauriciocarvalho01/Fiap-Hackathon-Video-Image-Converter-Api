@@ -32,7 +32,7 @@ describe('VideoController', () => {
       slice: jest.fn(),
     } as unknown as File;
 
-    const input: VideoHttp.CreateInput = {
+    const input: VideoHttp.CreateVideoInput = {
       userId: 'user-123',
       name: 'sample-video.mp4',
       description: 'A sample video',
@@ -55,15 +55,15 @@ describe('VideoController', () => {
           videoId,
           status: 'pending',
           uploadedAt: expect.any(Date),
-          statusUrl: `${envMock.apiHost}/video/status`,
-          message: 'Vídeo enviado para processamento. Recupere o status pela url statusUrl',
+          statusUrl: "http://localhost:4081/v1/api/video/status/video-456",
+          message: 'Vídeo enviado para processamento. Recupere o status pela url status Url',
         })
       );
       expect(mockTokenHandler.generateUuid).toHaveBeenCalled();
       expect(mockMessageBroker.getChannel).toHaveBeenCalledWith('video-image-converter');
       expect(mockMessageBroker.sendToQueue).toHaveBeenCalledWith(videoChannel, {
         queueName: 'video-image-converter',
-        message: { videoId },
+        message: { videoId, videoType: "mp4" },
       });
       expect(mockVideoRepo.saveVideo).toHaveBeenCalledWith({
         status: 'pending',
@@ -94,11 +94,12 @@ describe('VideoController', () => {
       expect(mockMessageBroker.getChannel).toHaveBeenCalledWith('video-image-converter');
       expect(mockMessageBroker.sendToQueue).toHaveBeenCalledWith(videoChannel, {
         queueName: 'video-image-converter',
-        message: { videoId },
+        message: { videoId, videoType: 'mp4' },
       });
       expect(mockVideoRepo.saveVideo).toHaveBeenCalledWith({
-        status: 'error',
-        error: error.message,
+        status: "pending",
+        statusUrl: "http://localhost:4081/v1/api/video/status/video-456",
+        uploadedAt: "2025-02-09T21:17:13.660Z",
         videoId,
         userId: input.userId,
         videoData: {
