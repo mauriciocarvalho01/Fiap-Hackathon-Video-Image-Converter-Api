@@ -42,7 +42,7 @@ spec:
               cpu: "512m"
           envFrom:
             - secretRef:
-                name: restaurante-acme-secrets
+                name: hackathon-video-image-secrets
             - configMapRef:
                 name: hackathon-video-image-api-vars
           readinessProbe:
