@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   annotations:
     reloader.stakater.com/auto: "true"
-    secret.reloader.stakater.com/reload: fiap/restaurante-acme-video
+    secret.reloader.stakater.com/reload: fiap/hackathon-video-image-api
   namespace: fiap
-  name: restaurante-acme-video
+  name: hackathon-video-image-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurante-acme-video
+      app: hackathon-video-image-api
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,12 +19,12 @@ spec:
   template:
     metadata:
       labels:
-        app: restaurante-acme-video
+        app: hackathon-video-image-api
     spec:
       serviceAccountName: metrics-sa
       containers:
-        - name: restaurante-acme-video
-          image: developer0101/restaurante-acme-video:latest
+        - name: hackathon-video-image-api
+          image: 814482976567.dkr.ecr.us-east-1.amazonaws.com/hackathon-video-image-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4080
@@ -44,7 +44,7 @@ spec:
             - secretRef:
                 name: restaurante-acme-secrets
             - configMapRef:
-                name: restaurante-acme-video-vars
+                name: hackathon-video-image-api-vars
           readinessProbe:
               httpGet:
                   path: /v1/api/healthcheck

@@ -1,7 +1,7 @@
 export const env = {
   appName: process.env.APP_NAME ?? 'restaurante_acme',
   isProduction: false, //process.env.TS_NODE_DEV === undefined,
-  port: process.env.PORT ?? 4000,
+  port: process.env.PORT ?? 4080,
   apiAccessKey: process.env.API_ACCESS_KEY,
   apiHost: process.env.API_HOST || 'localhost',
   checkIpAuthorization: /true/.test(
