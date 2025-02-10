@@ -71,7 +71,7 @@ Certifique-se de ter os seguintes softwares instalados na sua máquina:
 Clone este repositório para sua máquina local:
 
 ```sh
-git clone https://github.com/mauriciocarvalho01/Fiap-Hackathon-Video-Image-Converter.git
+git clone https://github.com/mauriciocarvalho01/Fiap-Hackathon-Video-Image-Converter-Api.git
 cd FIAP-Software-Architecture-Pos-Tech-7SOAT
 ```
 
